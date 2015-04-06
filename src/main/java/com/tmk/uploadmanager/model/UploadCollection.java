@@ -2,6 +2,7 @@ package com.tmk.uploadmanager.model;
 
 import java.io.Serializable;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
 
 /**
  * Storage class for uploads
@@ -42,7 +43,11 @@ public class UploadCollection implements Serializable {
 			return null;
 		}
 
-		return template.replaceAll("_COLLECTIONNAME_", name).replaceAll("_UPLOADNAME_", u.getTitle()).replaceAll("_UPLOADDESC_", u.getDescription()).replaceAll("_UPLOADIMAGE_", u.getImage());
+		return template
+						.replaceAll("_COLLECTIONNAME_", Matcher.quoteReplacement(name))
+						.replaceAll("_UPLOADNAME_", Matcher.quoteReplacement(u.getTitle()))
+						.replaceAll("_UPLOADDESC_", Matcher.quoteReplacement(u.getDescription()))
+						.replaceAll("_UPLOADIMAGE_", Matcher.quoteReplacement(u.getImage()));
 	}
 
 	public int size() {
